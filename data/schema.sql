@@ -33,3 +33,4 @@ CREATE TABLE students (
     last_name VARCHAR(50) NOT NULL,
     contact_email VARCHAR(100) UNIQUE NOT NULL
 );
+
