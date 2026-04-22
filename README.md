@@ -88,7 +88,7 @@ The data layer includes key concepts from database engineering:
 uovt_student_management_system/
 |-- application/
 |   |-- auth.php
-|   |-- crud_actions.php
+|   |-- actions.php
 |   `-- db.php
 |-- presentation/
 |   |-- index.php
