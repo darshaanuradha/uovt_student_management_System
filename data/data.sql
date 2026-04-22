@@ -33,7 +33,7 @@ VALUES
     ('Chamara', 'Silva', 'chamara@uovt.ac.lk');
 
 
---  dummy hash (password: admin123) 
+--  dummy hash (password : admin123) 
 INSERT INTO system_users (email, password_hash, role)
 VALUES
     ('perera@uovt.ac.lk', '$2y$10$a1f5yoIkKN8zFBQ2.2p2heEWPjL1NhX.tovcAlgY1PiIPo9JzrU5a','User'),
