@@ -34,3 +34,25 @@ CREATE TABLE students (
     contact_email VARCHAR(100) UNIQUE NOT NULL
 );
 
+-- 5. Enrollments Table
+CREATE TABLE enrollments (
+    enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    course_id INT,
+    enrollment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
+    UNIQUE(student_id, course_id)
+);
+
+-- 6. System Users Table
+CREATE TABLE system_users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('Admin', 'User') DEFAULT 'User'
+);
+
+-- Indexes
+CREATE INDEX idx_student_name ON students(last_name);
+CREATE INDEX idx_course_name ON courses(course_name);
