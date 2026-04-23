@@ -19,6 +19,7 @@
         <?php endif; ?>
 
         <form action="../application/auth.php" method="POST" class="space-y-6">
+            <input type="hidden" name="action" value="login">
             <div>
                 <label class="block text-sm font-medium text-emerald-700">Email Address</label>
                 <input type="email" name="email" required class="mt-1 w-full p-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition">

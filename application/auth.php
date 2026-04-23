@@ -2,10 +2,13 @@
 session_start();
 require_once 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
+
+if ($_POST['action'] === 'login'){
+    
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-    echo "done";
+
 
     if (empty($email) || empty($password)) {
         header("Location: ../presentation/index.php?page=login&error=emptyfields");
@@ -27,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     header("Location: ../presentation/index.php?page=login&error=invalidcredentials");
     $stmt->close();
+}
+
 }
 $conn->close();
 ?>
