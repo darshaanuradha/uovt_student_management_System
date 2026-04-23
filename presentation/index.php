@@ -1,17 +1,43 @@
 <?php
-include '../application/db.php';
-if (!$conn->connect_error) {
-    echo "Connected successfully";
+session_start();
+
+// Default page
+$page = $_GET['page'] ?? 'login';
+
+// Whitelist (VERY IMPORTANT for security)
+$allowed_pages = [
+    'login',
+    'dashboard'
+];
+
+// Validate page
+if (!in_array($page, $allowed_pages)) {
+    $page = '404';
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>UOVT Student Management System</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-emerald-50 h-screen flex items-center justify-center font-sans">
-   
-</body>
-</html>
+
+// Authentication check
+if (!isset($_SESSION['user_id']) && $page !== 'login') {
+    header("Location: index.php?page=login");
+    exit;
+}
+
+// Load page
+switch ($page) {
+    case 'login':
+        require 'pages/login.php';
+        break;
+
+    case 'dashboard':
+        require 'pages/dashboard.php';
+        break;
+
+
+    case 'logout':
+        session_destroy();
+        header("Location: index.php?page=login");
+        exit;
+
+    default:
+        require 'pages/404.php';
+        break;
+}
