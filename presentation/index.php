@@ -1,43 +1,34 @@
 <?php
 session_start();
 
-// Default page
 $page = $_GET['page'] ?? 'login';
 
-// Whitelist (VERY IMPORTANT for security)
+// If not logged in and trying to access a secure page, redirect to the router's login
+if (!isset($_SESSION['user_id']) && $page !== 'login') {
+    header("Location: index.php?page=login"); 
+    exit;
+}
+
 $allowed_pages = [
     'login',
-    'dashboard'
+    'dashboard',
+    'manageStudents',
+    'enrollments',
+    'coursesDepartmentslecturers',
+    '404',
 ];
 
-// Validate page
 if (!in_array($page, $allowed_pages)) {
     $page = '404';
 }
 
-// Authentication check
-if (!isset($_SESSION['user_id']) && $page !== 'login') {
-    header("Location: index.php?page=login");
-    exit;
+$content = "pages/$page.php";
+
+// If it's the login page, just load the standalone file. 
+// Otherwise, load the secure layout with the sidebar.
+if ($page === 'login') {
+    require $content;
+} else {
+    require 'layouts/main.php'; 
 }
-
-// Load page
-switch ($page) {
-    case 'login':
-        require 'pages/login.php';
-        break;
-
-    case 'dashboard':
-        require 'pages/dashboard.php';
-        break;
-
-
-    case 'logout':
-        session_destroy();
-        header("Location: index.php?page=login");
-        exit;
-
-    default:
-        require 'pages/404.php';
-        break;
-}
+?>
