@@ -3,7 +3,7 @@ INSERT INTO departments (dept_name)
 VALUES
     ('Business Management'),
     ('Quantity Surveying'),
-    ('Education Technology');
+    ('Education Technology'),
     ('Information Technology');
 
 
