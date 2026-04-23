@@ -2,17 +2,16 @@
 session_start();
 require_once 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../presentation/index.php?page=login');
-    exit;
-}
-
-$action = $_POST['action'] ?? '';
+$action = $_REQUEST['action'] ?? '';
 
 if ($action === 'login') {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header('Location: ../presentation/index.php?page=login');
+        exit();
+    }
+
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-
 
     if (empty($email) || empty($password)) {
         header("Location: ../presentation/index.php?page=login&error=emptyfields");
@@ -28,25 +27,32 @@ if ($action === 'login') {
         if (password_verify($password, $row['password_hash'])) {
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['role'] = $row['role'];
+            $stmt->close();
+            $conn->close();
             header("Location: ../presentation/index.php?page=dashboard");
             exit();
         }
     }
+    
     $stmt->close();
     $conn->close();
     header('Location: ../presentation/index.php?page=login&error=invalidcredentials');
-    exit;
+    exit();
 }
 
 if ($action === 'logout') {
     $_SESSION = [];
     session_destroy();
-    $conn->close();
+    if (isset($conn)) {
+        $conn->close();
+    }
     header('Location: ../presentation/index.php?page=login');
-    exit;
+    exit();
 }
 
-$conn->close();
+if (isset($conn)) {
+    $conn->close();
+}
 header('Location: ../presentation/index.php?page=login&error=1');
-exit;
+exit();
 ?>
