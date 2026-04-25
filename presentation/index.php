@@ -8,23 +8,7 @@ if (!isset($_SESSION['user_id']) && $page !== 'login') {
     exit;
 }
 
-$allowed_pages = [
-    'login',
-    'dashboard',
-    'students',
-    'enrollments',
-    'courses',
-    'departments',
-    'lecturers',
-    '404',
-];
-
-if (!in_array($page, $allowed_pages)) {
-    $page = '404';
-}
-
 $content = "pages/$page.php";
-
 
 if ($page === 'login') {
     require $content;
