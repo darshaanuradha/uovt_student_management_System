@@ -41,7 +41,7 @@
                 if ($students) {
                     while ($s = $students->fetch_assoc()) {
                         echo "<option value='" . $s['student_id'] . "'>"
-                            . $s['last_name'] . ", " . $s['first_name']
+                            . $s['first_name'] . " " . $s['last_name']
                             . " (ID: " . $s['student_id'] . ")</option>";
                     }
                 }

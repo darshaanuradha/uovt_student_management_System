@@ -34,7 +34,7 @@
             $result = $conn->query('SELECT * FROM ViewEnrollments ORDER BY enrollment_date DESC;');
             if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()):
-                    $date = date("M j, Y", strtotime($row['enrollment_date']));
+                    $date = date("M j, Y h:i A", strtotime($row['enrollment_date']));
             ?>
                     <tr class="hover:bg-emerald-50/50 transition border-b border-emerald-50">
                         <td class="p-3 text-sm font-medium text-gray-500"><?php echo $date; ?></td>
