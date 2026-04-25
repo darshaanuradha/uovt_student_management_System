@@ -12,15 +12,15 @@ VALUES
     ('Dr. Jayasuriya', 'jayasuriya@uovt.ac.lk', 1),  
     ('Mr. Bandara', 'bandara@uovt.ac.lk', 3),        
     ('Dr. Gunawardena', 'gunawardena@uovt.ac.lk', 4), 
-    ('Ms. Herath', 'herath@uovt.ac.lk', 5); 
+    ('Ms. Herath', 'herath@uovt.ac.lk', 2); 
 
 
 INSERT INTO courses (course_name, lecturer_id)
 VALUES
     ('Web Application Development', 3),
     ('Project Management', 4),          
-    ('Construction Technology', 5),    
-    ('Educational Psychology', 6),     
+    ('Construction Technology', 2),    
+    ('Educational Psychology', 1),     
     ('Advanced Database Systems', 1);   
 
 
