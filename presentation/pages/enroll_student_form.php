@@ -2,7 +2,7 @@
     <div class="flex justify-between items-end mb-6 px-2">
         <div>
             <h2 class="text-3xl font-extrabold text-emerald-900 tracking-tight">New Enrollment</h2>
-            <p class="text-sm text-emerald-600 mt-1 font-medium">Assign a student to a university course.</p>
+            <p class="text-sm text-emerald-600 mt-1 font-medium">Assign a student to a course.</p>
         </div>
         <a href="index.php?page=enrollments" class="text-emerald-600 hover:text-emerald-800 text-sm font-bold flex items-center group transition">
             <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
