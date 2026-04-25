@@ -11,9 +11,10 @@ if (!isset($_SESSION['user_id']) && $page !== 'login') {
 $allowed_pages = [
     'login',
     'dashboard',
-    'manageStudents',
+    'students',
     'enrollments',
-    'coursesDepartments',
+    'courses',
+    'departments',
     'lecturers',
     '404',
 ];
