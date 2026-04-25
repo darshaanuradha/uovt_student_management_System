@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
         $course_id = (int)$_POST['course_id'];
 
         if (empty($student_id) || empty($course_id)) {
-            header("Location: ../presentation/enroll_student.php?error=empty");
+            header("Location: ../presentation/enroll_student_form.php?error=empty");
             exit();
         }
 
@@ -20,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
         $stmt->bind_param("ii", $student_id, $course_id);
 
         if ($stmt->execute()) {
-            header("Location: ../presentation/enroll_student.php?success=1");
+            header("Location: ../presentation/index.php?page=enroll_student_form&success=1");
         } else {
-            header("Location: ../presentation/enroll_student.php?error=db");
+            header("Location: ../presentation/index.php?page=enroll_student_form&error=db");
         }
         $stmt->close();
     }

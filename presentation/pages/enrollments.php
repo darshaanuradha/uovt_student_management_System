@@ -34,13 +34,12 @@
             $result = $conn->query('SELECT * FROM ViewEnrollments ORDER BY enrollment_date DESC;');
             if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()):
-                    // Format the timestamp cleanly
                     $date = date("M j, Y", strtotime($row['enrollment_date']));
             ?>
                     <tr class="hover:bg-emerald-50/50 transition border-b border-emerald-50">
                         <td class="p-3 text-sm font-medium text-gray-500"><?php echo $date; ?></td>
                         <td class="p-3 text-sm text-gray-800 font-semibold">
-                            <?php echo $row['last_name'] . ", " . $row['first_name']; ?>
+                            <?php echo $row['first_name'] . " " . $row['last_name']; ?>
                             <span class="text-xs text-gray-400 font-normal">(ID: <?php echo $row['student_id']; ?>)</span>
                         </td>
                         <td class="p-3 text-sm text-gray-700">
@@ -72,5 +71,5 @@
             alert.style.opacity = "0";
             setTimeout(() => alert.remove(), 500); // remove after fade
         }
-    }, 3000); // 3 seconds
+    }, 3000);
 </script>
