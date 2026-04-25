@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$page = $_GET['page'] ?? 'login';
+$page = $_GET['page'] ?? 'dashboard';
 
 if (!isset($_SESSION['user_id']) && $page !== 'login') {
     header("Location: index.php?page=login");
