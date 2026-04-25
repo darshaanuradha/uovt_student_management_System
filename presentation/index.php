@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once '../application/db.php';
 $page = $_GET['page'] ?? 'dashboard';
 
 if (!isset($_SESSION['user_id']) && $page !== 'login') {
