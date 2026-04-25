@@ -52,3 +52,5 @@ INNER JOIN students AS s
 INNER JOIN courses AS c 
     ON e.course_id = c.course_id
 ORDER BY e.enrollment_date DESC;
+
+
