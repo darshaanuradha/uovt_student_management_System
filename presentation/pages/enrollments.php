@@ -10,9 +10,13 @@
 </div>
 
 <?php if (isset($_GET['success']) && $_GET['success'] == 'deleted'): ?>
-    <div class="bg-emerald-100 text-emerald-800 p-3 rounded mb-4 text-sm font-medium">Student successfully unenrolled. Course totals updated via database trigger.</div>
+    <div id="alertBox" class="bg-emerald-100 text-emerald-800 p-3 rounded mb-4 text-sm font-medium">
+        Student successfully unenrolled. Course totals updated via database trigger.
+    </div>
 <?php elseif (isset($_GET['error'])): ?>
-    <div class="bg-red-100 text-red-800 p-3 rounded mb-4 text-sm font-medium">Error processing request.</div>
+    <div id="alertBox" class="bg-red-100 text-red-800 p-3 rounded mb-4 text-sm font-medium">
+        Error processing request.
+    </div>
 <?php endif; ?>
 
 <div class="overflow-x-auto">
@@ -59,3 +63,14 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    setTimeout(function() {
+        var alert = document.getElementById('alertBox');
+        if (alert) {
+            alert.style.transition = "opacity 0.5s ease";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500); // remove after fade
+        }
+    }, 3000); // 3 seconds
+</script>

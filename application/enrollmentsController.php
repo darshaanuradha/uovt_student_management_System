@@ -36,9 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action'])) {
         $stmt->bind_param("i", $enrollment_id);
 
         if ($stmt->execute()) {
-            header("Location: ../presentation/manage_enrollments.php?success=deleted");
+            header("Location: ../presentation/index.php?page=enrollments&success=deleted");
         } else {
-            header("Location: ../presentation/manage_enrollments.php?error=db");
+            header("Location: ../presentation/index.php?page=enrollments&error=db");
         }
         $stmt->close();
     }
