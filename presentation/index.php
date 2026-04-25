@@ -4,7 +4,7 @@ session_start();
 $page = $_GET['page'] ?? 'login';
 
 if (!isset($_SESSION['user_id']) && $page !== 'login') {
-    header("Location: index.php?page=login"); 
+    header("Location: index.php?page=login");
     exit;
 }
 
@@ -13,7 +13,8 @@ $allowed_pages = [
     'dashboard',
     'manageStudents',
     'enrollments',
-    'coursesDepartmentslecturers',
+    'coursesDepartments',
+    'lecturers',
     '404',
 ];
 
@@ -27,6 +28,5 @@ $content = "pages/$page.php";
 if ($page === 'login') {
     require $content;
 } else {
-    require 'layouts/main.php'; 
+    require 'layouts/main.php';
 }
-?>
