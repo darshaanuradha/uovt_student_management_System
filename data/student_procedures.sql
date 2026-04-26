@@ -21,4 +21,31 @@ INSERT INTO students (first_name, last_name, contact_email)
 VALUES (p_first_name, p_last_name, p_contact_email);
 END // 
 
+DROP PROCEDURE IF EXISTS sp_get_student_by_id // 
+CREATE PROCEDURE sp_get_student_by_id(IN p_student_id INT) BEGIN
+    SELECT student_id, first_name, last_name, contact_email
+    FROM students
+    WHERE student_id = p_student_id;
+END // 
+
+DROP PROCEDURE IF EXISTS sp_update_student // 
+CREATE PROCEDURE sp_update_student(
+    IN p_student_id INT,
+    IN p_first_name VARCHAR(50),
+    IN p_last_name VARCHAR(50),
+    IN p_contact_email VARCHAR(100)
+) BEGIN
+    UPDATE students
+    SET first_name = p_first_name,
+        last_name = p_last_name,
+        contact_email = p_contact_email
+    WHERE student_id = p_student_id;
+END // 
+
+DROP PROCEDURE IF EXISTS sp_delete_student // 
+CREATE PROCEDURE sp_delete_student(IN p_student_id INT) BEGIN
+    DELETE FROM students
+    WHERE student_id = p_student_id;
+END // 
+
 DELIMITER ;

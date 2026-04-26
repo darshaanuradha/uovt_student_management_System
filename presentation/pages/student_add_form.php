@@ -1,11 +1,27 @@
 <?php
+require_once '../application/studentcontroller.php';
+
 $isEdit = false;
 $student = null;
 $action = 'add';
 $buttonText = 'Add Student';
 $titleText = 'Add New Student';
 
-// Future edit logic can be placed here.
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $studentId = intval($_GET['id']);
+    $student = getStudentById($studentId);
+    
+    if ($student) {
+        $isEdit = true;
+        $action = 'edit';
+        $buttonText = 'Update Student';
+        $titleText = 'Edit Student Details';
+    }
+}
+
+$firstName = $isEdit ? htmlspecialchars($student['first_name']) : '';
+$lastName = $isEdit ? htmlspecialchars($student['last_name']) : '';
+$contactEmail = $isEdit ? htmlspecialchars($student['contact_email']) : '';
 ?>
 
 <div class="bg-white border border-emerald-100 rounded-xl shadow-sm p-6 mb-6 max-w-2xl mx-auto">
@@ -29,27 +45,30 @@ $titleText = 'Add New Student';
 
     <form action="../application/studentcontroller.php" method="POST">
         <input type="hidden" name="action" value="<?= $action ?>">
+        <?php if ($isEdit): ?>
+            <input type="hidden" name="student_id" value="<?= $student['student_id'] ?>">
+        <?php endif; ?>
         
         <div class="space-y-4">
             <div>
                 <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name <span class="text-red-500">*</span></label>
                 <input type="text" id="first_name" name="first_name" required
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
-                    value="">
+                    value="<?= $firstName ?>">
             </div>
             
             <div>
                 <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name <span class="text-red-500">*</span></label>
                 <input type="text" id="last_name" name="last_name" required
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
-                    value="">
+                    value="<?= $lastName ?>">
             </div>
             
             <div>
                 <label for="contact_email" class="block text-sm font-medium text-gray-700 mb-1">Email Address <span class="text-red-500">*</span></label>
                 <input type="email" id="contact_email" name="contact_email" required
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"
-                    value="">
+                    value="<?= $contactEmail ?>">
             </div>
         </div>
 
