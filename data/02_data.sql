@@ -1,4 +1,6 @@
 
+USE uovt_sms;
+
 INSERT INTO departments (dept_name)
 VALUES
     ('Business Management'),
