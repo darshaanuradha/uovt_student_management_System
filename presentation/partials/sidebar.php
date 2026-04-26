@@ -53,11 +53,11 @@ $currentPage = $page ?? 'dashboard';
             <div>
                 <p class="mb-3 px-3 text-xs font-semibold text-emerald-500/80 uppercase tracking-widest">Management</p>
                 <div class="space-y-1">
-                    <a href="index.php?page=manageStudents" class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 <?php echo $currentPage === 'manageStudents' ? $activeClass : $inactiveClass; ?>">
-                        <svg class="h-5 w-5 <?php echo $currentPage === 'manageStudents' ? $activeIcon : $inactiveIcon; ?>" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a href="index.php?page=students" class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 <?php echo $currentPage === 'students' ? $activeClass : $inactiveClass; ?>">
+                        <svg class="h-5 w-5 <?php echo $currentPage === 'students' ? $activeIcon : $inactiveIcon; ?>" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
-                        <span class="font-medium text-sm">Manage Students</span>
+                        <span class="font-medium text-sm">Students</span>
                     </a>
 
                     <a href="index.php?page=enrollments" class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 <?php echo $currentPage === 'enrollments' ? $activeClass : $inactiveClass; ?>">
@@ -67,11 +67,17 @@ $currentPage = $page ?? 'dashboard';
                         <span class="font-medium text-sm">Enrollments</span>
                     </a>
 
-                    <a href="index.php?page=coursesDepartments" class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 <?php echo $currentPage === 'coursesDepartments' ? $activeClass : $inactiveClass; ?>">
-                        <svg class="h-5 w-5 <?php echo $currentPage === 'coursesDepartments' ? $activeIcon : $inactiveIcon; ?>" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a href="index.php?page=courses" class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 <?php echo $currentPage === 'courses' ? $activeClass : $inactiveClass; ?>">
+                        <svg class="h-5 w-5 <?php echo $currentPage === 'courses' ? $activeIcon : $inactiveIcon; ?>" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
-                        <span class="font-medium text-sm">Courses, Departments</span>
+                        <span class="font-medium text-sm">Courses</span>
+                    </a>
+                    <a href="index.php?page=departments" class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 <?php echo $currentPage === 'departments' ? $activeClass : $inactiveClass; ?>">
+                        <svg class="h-5 w-5 <?php echo $currentPage === 'departments' ? $activeIcon : $inactiveIcon; ?>" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <span class="font-medium text-sm">Departments</span>
                     </a>
                     <a href="index.php?page=lecturers" class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 <?php echo $currentPage === 'lecturers' ? $activeClass : $inactiveClass; ?>">
                         <svg class="h-5 w-5 <?php echo $currentPage === 'lecturers' ? $activeIcon : $inactiveIcon; ?>" fill="none" viewBox="0 0 24 24" stroke="currentColor">
