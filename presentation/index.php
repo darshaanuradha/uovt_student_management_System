@@ -14,6 +14,7 @@ $allowed_pages = [
     'manageStudents',
     'enrollments',
     'coursesDepartments',
+    'course_add_form',
     'lecturers',
     '404',
 ];
