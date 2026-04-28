@@ -209,7 +209,7 @@ if (isset($_GET['success'])) {
                             <td class="px-6 py-4">
                                 <div class="flex items-center justify-center gap-2">
                                     <!-- Edit button -->
-                                    <a href="index.php?page=coursesDepartments&edit=<?php echo $course['course_id']; ?>"
+                                    <a href="index.php?page=courses&edit=<?php echo $course['course_id']; ?>"
                                         id="edit-course-<?php echo $course['course_id']; ?>"
                                         class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
                                           bg-emerald-50 text-emerald-700 border border-emerald-200

@@ -16,7 +16,7 @@ if ($action === 'create') {
     $lecturer_id = (int)($_POST['lecturer_id'] ?? 0);
 
     if (empty($course_name) || $lecturer_id <= 0) {
-        header('Location: ../presentation/index.php?page=coursesDepartments&error=validation');
+        header('Location: ../presentation/index.php?page=courses&error=validation');
         exit();
     }
 
@@ -26,7 +26,7 @@ if ($action === 'create') {
     $stmt->close();
     $conn->close();
 
-    header('Location: ../presentation/index.php?page=coursesDepartments&success=created');
+    header('Location: ../presentation/index.php?page=courses&success=created');
     exit();
 }
 
@@ -37,7 +37,7 @@ if ($action === 'update') {
     $lecturer_id = (int)($_POST['lecturer_id'] ?? 0);
 
     if ($course_id <= 0 || empty($course_name) || $lecturer_id <= 0) {
-        header('Location: ../presentation/index.php?page=coursesDepartments&error=validation');
+        header('Location: ../presentation/index.php?page=courses&error=validation');
         exit();
     }
 
@@ -47,7 +47,7 @@ if ($action === 'update') {
     $stmt->close();
     $conn->close();
 
-    header('Location: ../presentation/index.php?page=coursesDepartments&success=updated');
+    header('Location: ../presentation/index.php?page=courses&success=updated');
     exit();
 }
 
@@ -56,7 +56,7 @@ if ($action === 'delete') {
     $course_id = (int)($_GET['course_id'] ?? $_POST['course_id'] ?? 0);
 
     if ($course_id <= 0) {
-        header('Location: ../presentation/index.php?page=coursesDepartments&error=invalid');
+        header('Location: ../presentation/index.php?page=courses&error=invalid');
         exit();
     }
 
@@ -66,7 +66,7 @@ if ($action === 'delete') {
     $stmt->close();
     $conn->close();
 
-    header('Location: ../presentation/index.php?page=coursesDepartments&success=deleted');
+    header('Location: ../presentation/index.php?page=courses&success=deleted');
     exit();
 }
 
@@ -74,6 +74,5 @@ if ($action === 'delete') {
 if (isset($conn)) {
     $conn->close();
 }
-header('Location: ../presentation/index.php?page=coursesDepartments&error=unknownaction');
+header('Location: ../presentation/index.php?page=courses&error=unknownaction');
 exit();
-?>
