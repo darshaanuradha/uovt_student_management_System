@@ -2,155 +2,78 @@
 session_start();
 require_once 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+try {
 
-    /* ===============================
-       ADD NEW DEPARTMENT
-    ================================ */
-    if ($_POST['action'] === 'add_department') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
-        $department_name = trim($_POST['department_name']);
-        $description     = trim($_POST['description']);
+        // ADD DEPARTMENT
+        if ($_POST['action'] === 'add_department') {
 
-        if (empty($department_name)) {
-            header("Location: ../presentation/index.php?page=add_department&error=empty");
-            exit();
-        }
+            $dept_name = trim($_POST['dept_name']);
 
-        // Check for duplicate department name
-        $checkStmt = $conn->prepare(
-            "SELECT department_id FROM departments WHERE department_name = ?"
-        );
-        $checkStmt->bind_param("s", $department_name);
-        $checkStmt->execute();
-        $checkStmt->store_result();
+            if ($dept_name === '') {
+                throw new Exception("Department name is required");
+            }
 
-        if ($checkStmt->num_rows > 0) {
-            $checkStmt->close();
-            header("Location: ../presentation/index.php?page=add_department&error=duplicate");
-            exit();
-        }
-        $checkStmt->close();
+            $stmt = $conn->prepare("CALL AddDepartment(?)");
+            $stmt->bind_param("s", $dept_name);
 
-        // Insert department
-        $stmt = $conn->prepare(
-            "INSERT INTO departments (department_name, description) VALUES (?, ?)"
-        );
-        $stmt->bind_param("ss", $department_name, $description);
+            if (!$stmt->execute()) {
+                throw new Exception($stmt->error);
+            }
 
-        if ($stmt->execute()) {
+            $stmt->close();
+            $conn->next_result();
+
             header("Location: ../presentation/index.php?page=departments&success=added");
-        } else {
-            header("Location: ../presentation/index.php?page=add_department&error=db");
-        }
-        $stmt->close();
-    }
-
-    /* ===============================
-       UPDATE EXISTING DEPARTMENT
-    ================================ */
-    elseif ($_POST['action'] === 'update_department') {
-
-        $department_id   = (int) $_POST['department_id'];
-        $department_name = trim($_POST['department_name']);
-        $description     = trim($_POST['description']);
-
-        if (empty($department_id) || empty($department_name)) {
-            header("Location: ../presentation/index.php?page=departments&error=invalid");
             exit();
         }
 
-        // Prevent duplicate names (excluding itself)
-        $checkStmt = $conn->prepare(
-            "SELECT department_id FROM departments 
-             WHERE department_name = ? AND department_id != ?"
-        );
-        $checkStmt->bind_param("si", $department_name, $department_id);
-        $checkStmt->execute();
-        $checkStmt->store_result();
+        // EDIT DEPARTMENT (USE PROCEDURE)
+        if ($_POST['action'] === 'edit_department') {
 
-        if ($checkStmt->num_rows > 0) {
-            $checkStmt->close();
-            header(
-                "Location: ../presentation/index.php?page=edit_department&id=$department_id&error=duplicate"
-            );
-            exit();
-        }
-        $checkStmt->close();
+            $dept_id = intval($_POST['dept_id']);
+            $dept_name = trim($_POST['dept_name']);
 
-        // Update record
-        $stmt = $conn->prepare(
-            "UPDATE departments 
-             SET department_name = ?, description = ?
-             WHERE department_id = ?"
-        );
-        $stmt->bind_param("ssi", $department_name, $description, $department_id);
+            if ($dept_name === '') {
+                throw new Exception("Department name is required");
+            }
 
-        if ($stmt->execute()) {
+            $stmt = $conn->prepare("CALL UpdateDepartment(?, ?)");
+            $stmt->bind_param("is", $dept_id, $dept_name);
+
+            if (!$stmt->execute()) {
+                throw new Exception($stmt->error);
+            }
+
+            $stmt->close();
+            $conn->next_result();
+
             header("Location: ../presentation/index.php?page=departments&success=updated");
-        } else {
-            header(
-                "Location: ../presentation/index.php?page=edit_department&id=$department_id&error=db"
-            );
-        }
-        $stmt->close();
-    }
-
-    /* ===============================
-       DELETE DEPARTMENT
-    ================================ */
-    elseif ($_POST['action'] === 'delete_department') {
-
-        $department_id = (int) $_POST['department_id'];
-
-        if (empty($department_id)) {
-            header("Location: ../presentation/index.php?page=departments&error=invalid");
             exit();
         }
 
-        /**
-         * OPTIONAL SAFETY (recommended):
-         * Prevent deleting a department that has courses
-         * Uncomment once courses.department_id exists
-         */
-        /*
-        $checkCourses = $conn->prepare(
-            "SELECT course_id FROM courses WHERE department_id = ?"
-        );
-        $checkCourses->bind_param("i", $department_id);
-        $checkCourses->execute();
-        $checkCourses->store_result();
+        // DELETE DEPARTMENT (POST ONLY)
+        if ($_POST['action'] === 'delete_department') {
 
-        if ($checkCourses->num_rows > 0) {
-            $checkCourses->close();
-            header("Location: ../presentation/index.php?page=departments&error=hascourses");
-            exit();
-        }
-        $checkCourses->close();
-        */
+            $dept_id = intval($_POST['id']);
 
-        // Delete department
-        $stmt = $conn->prepare(
-            "DELETE FROM departments WHERE department_id = ?"
-        );
-        $stmt->bind_param("i", $department_id);
+            $stmt = $conn->prepare("CALL DeleteDepartment(?)");
+            $stmt->bind_param("i", $dept_id);
 
-        if ($stmt->execute()) {
+            if (!$stmt->execute()) {
+                throw new Exception($stmt->error);
+            }
+
+            $stmt->close();
+            $conn->next_result();
+
             header("Location: ../presentation/index.php?page=departments&success=deleted");
-        } else {
-            header("Location: ../presentation/index.php?page=departments&error=db");
+            exit();
         }
-        $stmt->close();
     }
+} catch (Exception $e) {
+
+    header("Location: ../presentation/index.php?page=departments&error=1");
+    exit();
 }
-
-$conn->close();
-
-
-
-
-
-
-
-
-
