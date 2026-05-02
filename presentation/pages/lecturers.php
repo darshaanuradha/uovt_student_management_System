@@ -12,9 +12,11 @@ $lecturers = $conn->query("select * from lecturer_departments_view");
             <h1 class="text-3xl font-bold text-green-900 mb-6">
                  Lecturers
             </h1>
-            <button class="bg-green-900 hover:bg-green-900 text-white px-5 py-2 rounded-lg shadow-sm transition">
-                + Add Lecturer
-            </button>
+            <a href="../presentation/index.php?page=add_lecturer">
+                <button class="bg-green-900 hover:bg-green-900 text-white px-5 py-2 rounded-lg shadow-sm transition">
+                    + Add Lecturer
+                </button>
+            </a>
         </div>
 
     <div class="overflow-x-auto">
