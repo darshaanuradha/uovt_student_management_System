@@ -1,5 +1,26 @@
 <?php
-require_once '../application/db.php';
+require_once 'db.php';
+
+// DELETE (GET request)
+if (isset($_GET['action']) && $_GET['action'] === 'delete') {
+
+    if (!isset($_GET['id'])) {
+        echo "Invalid request";
+        exit();
+    }
+
+    $id = $_GET['id'];
+
+    $stmt = $conn->prepare("DELETE FROM lecturers WHERE lecturer_id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+
+    header("Location: ../presentation/index.php?page=lecturers");
+    exit();
+}
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
