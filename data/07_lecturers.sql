@@ -7,3 +7,6 @@ SELECT
 FROM lecturers l
 JOIN departments d 
     ON l.dept_id = d.dept_id;
+
+
+

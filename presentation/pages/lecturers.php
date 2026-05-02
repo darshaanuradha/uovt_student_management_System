@@ -28,6 +28,7 @@ $lecturers = $conn->query("select * from lecturer_departments_view");
                     <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Name</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Email</th>
                     <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Department</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Actions</th>
                 </tr>
             </thead>
 
@@ -51,6 +52,11 @@ $lecturers = $conn->query("select * from lecturer_departments_view");
                             <span class="px-3 py-1 text-sm font-semibold text-green-900 bg-green-100 rounded-full">
                                 <?php echo $lecturer['dept_name'] ?>
                             </span>
+                        </td>
+
+                        <td class="px-6 py-4 text-sm font-medium">
+                            <a href="../presentation/index.php?page=edit_lecturer&id=<?php echo $lecturer['lecturer_id']; ?>" class="text-green-600 hover:text-green-900">Edit</a>
+                            <a href="../application/lecturerController.php?action=delete&id=<?php echo $lecturer['lecturer_id']; ?>" class="text-red-600 hover:text-red-900 ml-3">Delete</a>
                         </td>
 
                     </tr>
