@@ -33,7 +33,7 @@ if ($action === 'login') {
             exit();
         }
     }
-    
+
     $stmt->close();
     $conn->close();
     header('Location: ../presentation/index.php?page=login&error=invalidcredentials');
@@ -55,4 +55,3 @@ if (isset($conn)) {
 }
 header('Location: ../presentation/index.php?page=login&error=1');
 exit();
-?>
