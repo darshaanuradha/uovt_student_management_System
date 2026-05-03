@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>UOVT Student Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-emerald-50 h-screen flex items-center justify-center font-sans">
-   <div class="bg-white/80 backdrop-blur-md p-10 rounded-2xl shadow-xl border border-emerald-100 w-full max-w-md">
+    <div class="bg-white/80 backdrop-blur-md p-10 rounded-2xl shadow-xl border border-emerald-100 w-full max-w-md">
         <div class="text-center mb-8">
             <h1 class="text-3xl font-extrabold text-emerald-800">UOVT SMS</h1>
             <p class="text-emerald-600 mt-2">Sign in to your account</p>
         </div>
 
-        <?php if(isset($_GET['error'])): ?>
+        <?php if (isset($_GET['error'])): ?>
             <div class="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm text-center">
                 Invalid credentials or empty fields.
             </div>
@@ -34,5 +36,5 @@
         </form>
     </div>
 </body>
-</html>
 
+</html>

@@ -1,1 +1,0 @@
-<h1>Courses, Departments & Lecturers</h1>
