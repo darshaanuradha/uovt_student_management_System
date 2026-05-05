@@ -1,62 +1,62 @@
 <?php
 require_once 'db.php';
 
-// DELETE (GET request)
+// DELETE
 if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 
     if (!isset($_GET['id'])) {
-        echo "Invalid request";
-        exit();
+        exit("Invalid request");
     }
 
-    $id = $_GET['id'];
+    $id = (int) $_GET['id'];
 
-    $stmt = $conn->prepare("DELETE FROM lecturers WHERE lecturer_id = ?");
+    $stmt = $conn->prepare("CALL delete_lecturer(?)");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
+    $conn->next_result();
 
-    header("Location: ../presentation/index.php?page=lecturers");
+    header("Location: ../presentation/index.php?page=lecturers&success=deleted");
     exit();
 }
 
 
-
+// POST (INSERT / UPDATE)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    //  UPDATE
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $dept_id = (int) $_POST['department'];
+
+    if ($name === '' || $email === '' || $dept_id === 0) {
+        header("Location: ../presentation/index.php?page=add_lecturer&error=empty");
+        exit();
+    }
+
+    // UPDATE
     if (isset($_POST['update'])) {
 
-        $id = $_POST['lecturer_id'];
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $dept_id = trim($_POST['department']);
+        $id = (int) $_POST['lecturer_id'];
 
-        $stmt = $conn->prepare("UPDATE lecturers SET name=?, email=?, dept_id=? WHERE lecturer_id=?");
-        $stmt->bind_param("ssii", $name, $email, $dept_id, $id);
+        $stmt = $conn->prepare("CALL update_lecturer(?, ?, ?, ?)");
+        $stmt->bind_param("issi", $id, $name, $email, $dept_id);
         $stmt->execute();
         $stmt->close();
+        $conn->next_result();
 
-    } 
-    //  INSERT
+        header("Location: ../presentation/index.php?page=lecturers&success=updated");
+    }
+
+    // INSERT
     else {
 
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $dept_id = trim($_POST['department']);
-
-        if ($name === '' || $email === '' || $dept_id === '') {
-            header("Location: ../presentation/index.php?page=add_lecturer&error=Please fill in all fields");
-            exit();
-        }
-
-        $stmt = $conn->prepare("INSERT INTO lecturers (name, email, dept_id) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("CALL insert_lecturer(?, ?, ?)");
         $stmt->bind_param("ssi", $name, $email, $dept_id);
         $stmt->execute();
         $stmt->close();
+
+        header("Location: ../presentation/index.php?page=lecturers&success=created");
     }
 
-    header("Location: ../presentation/index.php?page=lecturers");
     exit();
 }
-?>

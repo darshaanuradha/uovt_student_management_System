@@ -1,5 +1,5 @@
 <?php
-$lecturers = $conn->query("SELECT * FROM lecturer_departments_view");
+$lecturers = $conn->query("SELECT * FROM lecturer_departments_view ORDER BY lecturer_id DESC");
 ?>
 
 <div class="min-h-full flex flex-col pb-10">
