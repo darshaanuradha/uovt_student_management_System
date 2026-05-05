@@ -251,11 +251,11 @@ git push origin main
 
 | Member Name | Student ID |
 |---|---|
-| Anuradha | SIS24B215 |
-| Charith | [Insert ID] |
-| Withana | [Insert ID] |
-| Lakmali | SIS24B213 |
-| Shakila | SIS24B239 |
+| G.B.D Anuradha | SIS24B215 |Dashoard,Enrollments,scheama,data,Er
+| L.B Charith Jeewan |  SIS24B236 |Department, Normalization
+| W.I.L Withana | SIS24B238 | Students
+| H.K.G.V.L Koralage | SIS24B213 | Lectures
+| B.W.S.S Nawarathna | SIS24B239 | Courses
 
 ## Maintenance Notes
 
