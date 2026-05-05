@@ -6,134 +6,143 @@ $totalEnrollments = $totalRow['total'];
 $result = $conn->query('SELECT * FROM ViewEnrollments ORDER BY enrollment_date DESC');
 ?>
 
-<div class="bg-white border border-emerald-100 rounded-xl shadow-sm p-6 mb-6">
-
-    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-
-        <!-- LEFT SIDE -->
+<!-- ══════════════════════════════════════════════════════════ PAGE HEADER -->
+<div class="mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-emerald-800">
-                Course Enrollments
-            </h2>
-            <p class="text-sm text-emerald-600 mt-1">
-                View and manage student course registrations
-            </p>
+            <h1 class="text-2xl font-bold text-emerald-900 tracking-tight">Course Enrollments</h1>
+            <p class="text-sm text-emerald-600 mt-1">View and manage student course registrations</p>
         </div>
 
-        <!-- RIGHT SIDE -->
         <div class="flex items-center gap-4">
-
-            <!-- STAT CARD -->
-            <div class="bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2 text-center">
-                <div class="text-xs text-emerald-600">Total Enrollments</div>
-                <div class="text-xl font-bold text-emerald-800">
-                    <?= $totalEnrollments ?>
-                </div>
+            <!-- Stat Badge -->
+            <div class="bg-white rounded-xl border border-emerald-100 shadow-sm px-4 py-2 flex items-center gap-3">
+                <span class="text-xs text-emerald-500 font-medium uppercase tracking-wider">Total</span>
+                <span class="text-lg font-bold text-emerald-900"><?= $totalEnrollments ?></span>
             </div>
 
-            <!-- ACTIONS -->
-            <div class="flex flex-col items-end gap-2">
-
-                <a href="index.php?page=enroll_student_form"
-                    class="bg-emerald-600 text-white px-4 py-2 rounded-lg shadow hover:bg-emerald-700 transition font-semibold text-sm">
-                    + New Enrollment
-                </a>
-
-                <a href="index.php?page=dashboard"
-                    class="text-emerald-700 hover:text-emerald-900 text-sm font-semibold">
-                    ← Back to Dashboard
-                </a>
-
-            </div>
-
+            <!-- Action Button -->
+            <a href="index.php?page=enroll_student_form"
+                class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95
+                       text-white font-semibold px-5 py-2.5 rounded-xl shadow-md shadow-emerald-200
+                       transition-all duration-200">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                </svg>
+                New Enrollment
+            </a>
         </div>
-
     </div>
 </div>
 
-<!-- Alerts -->
+<!-- ══════════════════════════════════════════════════════════ ALERTS -->
 <?php if (isset($_GET['success']) && $_GET['success'] == 'deleted'): ?>
-    <div id="alertBox" class="bg-emerald-100 text-emerald-800 p-3 rounded mb-4 text-sm font-medium">
-        Student successfully unenrolled. Course totals updated via database trigger.
+    <div id="alertBox" class="flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-4 rounded-xl mb-6 shadow-sm">
+        <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        <span class="text-sm font-medium">Student successfully unenrolled. Course totals updated.</span>
     </div>
 <?php elseif (isset($_GET['error'])): ?>
-    <div id="alertBox" class="bg-red-100 text-red-800 p-3 rounded mb-4 text-sm font-medium">
-        Error processing request.
+    <div id="alertBox" class="flex items-center gap-3 bg-red-50 border border-red-200 text-red-800 px-5 py-4 rounded-xl mb-6 shadow-sm">
+        <svg class="w-5 h-5 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <span class="text-sm font-medium">Error processing request. Please try again.</span>
     </div>
 <?php endif; ?>
 
-<!-- Table -->
-<div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-emerald-100">
-    <table class="w-full text-left border-collapse">
-        <thead>
-            <tr class="bg-emerald-100 text-emerald-800">
-                <th class="p-3 border-b">Date</th>
-                <th class="p-3 border-b">Student Name</th>
-                <th class="p-3 border-b">Course</th>
-                <th class="p-3 border-b text-right">Actions</th>
-            </tr>
-        </thead>
+<!-- ══════════════════════════════════════════════════════════ TABLE -->
+<div class="bg-white rounded-2xl border border-emerald-100 shadow-sm overflow-hidden">
+    <div class="px-6 py-4 border-b border-emerald-50 flex items-center justify-between">
+        <h2 class="text-sm font-semibold text-emerald-800 uppercase tracking-wider">Active Enrollments</h2>
+    </div>
 
-        <tbody>
-            <?php if ($result && $result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <?php
-                    $date = date("M j, Y h:i A", strtotime($row['enrollment_date']));
-                    ?>
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+            <thead>
+                <tr class="bg-emerald-50/70 text-emerald-600 uppercase text-xs tracking-wider">
+                    <th class="px-6 py-3 font-semibold">Date</th>
+                    <th class="px-6 py-3 font-semibold">Student</th>
+                    <th class="px-6 py-3 font-semibold">Course</th>
+                    <th class="px-6 py-3 font-semibold text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-emerald-50">
+                <?php if ($result && $result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <?php $date = date("M j, Y • H:i", strtotime($row['enrollment_date'])); ?>
 
-                    <tr class="hover:bg-emerald-50/50 transition border-b border-emerald-50">
-                        <td class="p-3 text-sm font-medium text-gray-500">
-                            <?= $date ?>
-                        </td>
+                        <tr class="hover:bg-emerald-50/40 transition-colors duration-150">
+                            <!-- Date -->
+                            <td class="px-6 py-4 text-emerald-500 text-xs font-medium whitespace-nowrap">
+                                <?= $date ?>
+                            </td>
 
-                        <td class="p-3 text-sm text-gray-800 font-semibold">
-                            <?= $row['first_name'] . " " . $row['last_name'] ?>
-                            <span class="text-xs text-gray-400 font-normal">
-                                (ID: <?= $row['student_id'] ?>)
-                            </span>
-                        </td>
+                            <!-- Student Info -->
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xs shrink-0 border border-emerald-200">
+                                        <?= strtoupper(substr($row['first_name'], 0, 1) . substr($row['last_name'], 0, 1)) ?>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-emerald-900">
+                                            <?= htmlspecialchars($row['first_name'] . " " . $row['last_name']) ?>
+                                        </p>
+                                        <p class="text-xs text-emerald-500 mt-0.5 font-mono">
+                                            ID: <?= htmlspecialchars($row['student_id']) ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
 
-                        <td class="p-3 text-sm text-gray-700">
-                            <span class="font-bold text-emerald-700">
-                                <?= $row['course_id'] ?>
-                            </span>
-                            - <?= $row['course_name'] ?>
-                        </td>
+                            <!-- Course Info -->
+                            <td class="px-6 py-4">
+                                <p class="font-semibold text-emerald-900">
+                                    <?= htmlspecialchars($row['course_name']) ?>
+                                </p>
+                                <p class="text-xs text-emerald-500 font-mono mt-0.5">
+                                    <?= htmlspecialchars($row['course_id']) ?>
+                                </p>
+                            </td>
 
-                        <td class="p-3 text-right">
-                            <form action="../application/enrollmentsController.php"
-                                method="POST"
-                                onsubmit="return confirm('Remove this student from the course?');">
-                                <input type="hidden" name="action" value="delete_enrollment">
-                                <input type="hidden" name="enrollment_id" value="<?= $row['enrollment_id'] ?>">
-
-                                <button type="submit"
-                                    class="bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200 transition font-semibold text-xs border border-red-200">
-                                    Unenroll
-                                </button>
-                            </form>
+                            <!-- Actions -->
+                            <td class="px-6 py-4">
+                                <div class="flex items-center justify-center">
+                                    <form action="../application/enrollmentsController.php" method="POST" onsubmit="return confirm('Are you sure you want to remove this student from the course?');">
+                                        <input type="hidden" name="action" value="delete_enrollment">
+                                        <input type="hidden" name="enrollment_id" value="<?= $row['enrollment_id'] ?>">
+                                        <button type="submit"
+                                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
+                                                   bg-red-50 text-red-600 border border-red-200
+                                                   hover:bg-red-500 hover:text-white hover:border-red-500 transition-all">
+                                            Unenroll
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4" class="text-center py-10 text-emerald-400 italic">
+                            No active enrollments found.
                         </td>
                     </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="4" class="p-4 text-center text-gray-500 italic">
-                        No active enrollments found.
-                    </td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- Auto-hide alert -->
+<!-- AUTO HIDE ALERT -->
 <script>
-    setTimeout(function() {
+    setTimeout(() => {
         const alert = document.getElementById('alertBox');
         if (alert) {
-            alert.style.transition = "opacity 0.5s ease";
+            alert.style.transition = "all 0.4s ease";
             alert.style.opacity = "0";
-            setTimeout(() => alert.remove(), 500);
+            setTimeout(() => alert.remove(), 400);
         }
-    }, 3000);
+    }, 3500);
 </script>
