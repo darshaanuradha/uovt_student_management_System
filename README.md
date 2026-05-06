@@ -1,264 +1,185 @@
-<div align="center">
-
 # UOVT Student Management System
 
-### Database-Driven Academic Management Platform
+Web-based academic management system built with Core PHP and MySQL for the IT304082 Database Implementation module. The application follows a simple 3-tier design and covers the main administrative workflows for departments, lecturers, students, courses, and enrollments.
 
-[![Status](https://img.shields.io/badge/status-active-2f855a?style=for-the-badge)](#)
-[![Architecture](https://img.shields.io/badge/architecture-3--tier-1a365d?style=for-the-badge)](#architecture)
-[![Backend](https://img.shields.io/badge/backend-core_php-2b6cb0?style=for-the-badge)](#technology-stack)
-[![Database](https://img.shields.io/badge/database-mysql-005f73?style=for-the-badge)](#database-design-highlights)
+## Overview
 
-</div>
+The system provides a single dashboard for managing core academic records:
 
-This project was developed for the IT304082 Database Implementation module.
-It is a web-based student management system built with Core PHP and MySQL,
-designed around a clean 3-tier architecture and strong database engineering practices.
+- Authentication and session-based access control
+- Department management
+- Lecturer management
+- Student management
+- Course management
+- Student enrollment and unenrollment
+- Dashboard summaries and recent activity
 
-## Table of Contents
+The project is designed to demonstrate clean request handling, reusable database logic, and a structured separation between presentation, application, and data layers.
 
-1. [Project Vision](#project-vision)
-2. [Core Capabilities](#core-capabilities)
-3. [Technology Stack](#technology-stack)
-4. [Architecture](#architecture)
-5. [Database Design Highlights](#database-design-highlights)
-6. [Repository Structure](#repository-structure)
-7. [Setup Guide](#setup-guide)
-8. [Git Workflow](#git-workflow)
-9. [Release Process](#release-process)
-10. [Commit Convention](#commit-convention)
-11. [Development Rules](#development-rules)
-12. [Team](#team)
-13. [Maintenance Notes](#maintenance-notes)
+## Features
 
-## Project Vision
+- Role-based login for protected pages
+- CRUD flows for departments, lecturers, students, and courses
+- Course enrollment workflow with database-side integrity rules
+- Stored procedures for common database actions
+- Views for dashboard and reporting screens
+- Prepared statements for safer database access
+- Responsive UI built with Tailwind CSS
 
-UOVT Student Management System centralizes core academic operations in one interface.
-The system currently manages:
+## Tech Stack
 
-- Departments
-- Lecturers
-- Courses
-- Students
-- Enrollments
-
-It is built to demonstrate reliable CRUD flows, secure server-side handling,
-and advanced database features that support real-world data consistency.
-
-## Core Capabilities
-
-- Session-based authentication
-- Student CRUD operations
-- Course enrollment workflow
-- Server-side validation
-- Prepared statements with MySQLi
-- Stored procedures for reusable DB logic
-- Triggers for automation and integrity
-- Views for reporting and simplified querying
-- Transaction support for atomic operations
-
-## Technology Stack
-
-- Frontend: HTML, CSS, JavaScript, TailwindCSS
+- Frontend: HTML, CSS, JavaScript, Tailwind CSS
 - Backend: Core PHP
 - Database: MySQL
 - Local environment: WAMP
 
 ## Architecture
 
-The project follows a strict 3-tier model to keep responsibilities clear and maintainable.
+The codebase is organized into three layers:
 
-- Presentation Layer: UI rendering and user interaction
-- Application Layer: business logic and request handling
-- Data Layer: schema, routines, triggers, views, and seed data
+- Presentation layer: pages in `presentation/` render the UI and forms
+- Application layer: controllers in `application/` process requests and call the database
+- Data layer: SQL scripts in `data/` define the schema, seed data, and database routines
 
-## Database Design Highlights
-
-The data layer includes key concepts from database engineering:
-
-- Normalization-oriented schema design
-- Stored procedures for structured operations
-- Triggers for automated business rules
-- Views for read-focused reporting
-- Transaction handling for consistency and rollback safety
-
-## Repository Structure
+## Project Structure
 
 ```text
 uovt_student_management_system/
 |-- application/
 |   |-- auth.php
-|   |-- actions.php
-|   `-- db.php
+|   |-- courseController.php
+|   |-- db.php
+|   |-- departmentsController.php
+|   |-- enrollmentsController.php
+|   |-- lecturerController.php
+|   `-- studentcontroller.php
+|-- data/
+|   |-- 01_schema.sql
+|   |-- 02_data.sql
+|   |-- 03_enrollments.sql
+|   |-- 04_courses.sql
+|   |-- 05_students.sql
+|   |-- 06_departments.sql
+|   `-- 07_lecturers.sql
 |-- presentation/
 |   |-- index.php
-|   `-- dashboard.php
-|-- data/
-|   |-- schema.sql
-|   |-- routines.sql
-|   `-- data.sql
-|-- docs/
-|   `-- 
-`-- README.md
+|   |-- layouts/
+|   |   `-- main.php
+|   |-- pages/
+|   |   |-- add_department.php
+|   |   |-- add_lecturer.php
+|   |   |-- course_add_form.php
+|   |   |-- courses.php
+|   |   |-- dashboard.php
+|   |   |-- departments.php
+|   |   |-- edit_department.php
+|   |   |-- edit_lecturer.php
+|   |   |-- enroll_student_form.php
+|   |   |-- enrollments.php
+|   |   |-- lecturers.php
+|   |   |-- login.php
+|   |   |-- student_add_form.php
+|   |   `-- students.PHP
+|   `-- partials/
+|       |-- header.php
+|       |-- sidebar.php
+|       `-- footer.php
+|-- README.md
+|-- TeamGitWorkflowGuide.md
+`-- issue.md
 ```
 
-## Setup Guide
+## Setup
 
-### 1. Clone the repository
+### 1. Place the project in the web root
 
-```bash
-git clone https://github.com/darshaanuradha/uovt_student_management_System.git
-cd uovt_student_management_System
-```
-
-### 2. Move project to web root
-
-Place the project folder in:
+Copy the project folder into your WAMP web directory:
 
 ```text
 C:\wamp64\www\
 ```
 
-### 3. Switch to development branch
+### 2. Create the database
 
-```bash
-git checkout dev
-git pull origin dev
-```
-
-### 4. Create and seed the database
-
-Open phpMyAdmin:
+Open phpMyAdmin in your browser:
 
 ```text
 http://localhost/phpmyadmin
 ```
 
-Run SQL files in this exact order:
+Create a new database named `uovt_sms`.
 
-1. schema.sql (database and tables)
-2. routines.sql (procedures, triggers, views)
-3. data.sql (sample data)
+### 3. Import the SQL scripts
 
-### 5. Configure database connection
+Import the files in this order:
 
-Update credentials in:
+1. `data/01_schema.sql`
+2. `data/02_data.sql`
+3. `data/03_enrollments.sql`
+4. `data/04_courses.sql`
+5. `data/05_students.sql`
+6. `data/06_departments.sql`
+7. `data/07_lecturers.sql`
 
-```text
-application/db.php
-```
+### 4. Configure the database connection
 
-Set:
+Update the credentials in `application/db.php` if needed:
 
 - Host
 - Username
 - Password
 - Database name
 
-### 6. Launch the application
+### 5. Run the application
 
-Open in browser:
+Open the system in your browser:
 
 ```text
-http://localhost/UOVT Student Management System/presentation/index.php
+http://localhost/uovt_student_management_system/presentation/index.php
 ```
 
-## Git Workflow
+## Usage
 
-This repository follows a team-based branching strategy.
+- `presentation/index.php` is the main entry point and loads pages by the `page` query parameter
+- Login is handled through `presentation/pages/login.php` and `application/auth.php`
+- After login, the dashboard is loaded first
+- All create, update, and delete actions flow through the PHP controllers in `application/`
 
-### Branch roles
+## Workflow
 
-- main: production-ready code
-- dev: integration branch
-- feature/*: individual feature branches
+The repository is intended to follow a team branching model:
 
-### Create a feature branch
+- `main`: stable production-ready code
+- `dev`: integration branch for team work
+- `feature/*`: short-lived branches for individual tasks
+
+Recommended branch flow:
 
 ```bash
 git checkout dev
 git pull origin dev
-git checkout -b feature/<your-name>-<feature>
+git checkout -b feature/<name>-<task>
 ```
 
-Example names:
+Commit messages should stay focused and descriptive:
 
-- feature/anuradha-auth
-- feature/lakmali-dashboard
-- feature/charith-procedures
-
-### Commit and push
-
-```bash
-git add .
-git commit -m "feat: add student CRUD"
-git push origin feature/<your-branch>
-```
-
-### Open Pull Request
-
-- Base branch: dev
-- Compare branch: your feature branch
-
-### Sync feature branch with latest dev
-
-```bash
-git checkout dev
-git pull origin dev
-git checkout feature/<your-branch>
-git merge dev
-```
-
-### Delete feature branch after merge
-
-```bash
-git branch -d feature/<your-branch>
-git push origin --delete feature/<your-branch>
-```
-
-## Release Process
-
-When stable, promote changes from dev to main.
-
-Option 1: Open Pull Request from dev to main.
-
-Option 2: Merge manually:
-
-```bash
-git checkout main
-git pull origin main
-git merge dev
-git push origin main
-```
-
-## Commit Convention
-
-- feat: new feature
-- fix: bug fix
-- refactor: internal code improvement
-- docs: documentation updates
-
-## Development Rules
-
-- Do not push directly to main
-- Always branch from dev
-- Keep features focused and small
-- Use prepared statements for DB access
-- Keep SQL scripts synchronized with code changes
-- Maintain strict 3-tier separation
+- `feat: add student form validation`
+- `fix: handle duplicate email on student save`
+- `docs: improve readme`
 
 ## Team
 
-| Member Name | Student ID |
-|---|---|
-| G.B.D Anuradha | SIS24B215 |Dashoard,Enrollments,scheama,data,Er
-| L.B Charith Jeewan |  SIS24B236 |Department, Normalization
-| W.I.L Withana | SIS24B238 | Students
-| H.K.G.V.L Koralage | SIS24B213 | Lectures
-| B.W.S.S Nawarathna | SIS24B239 | Courses
+| Member Name | Student ID | Main Work |
+|---|---|---|
+| G.B.D Anuradha | SIS24B215 | Dashboard, enrollments, schema, data |
+| L.B Charith Jeewan | SIS24B236 | Department module, normalization |
+| W.I.L Withana | SIS24B238 | Students |
+| H.K.G.V.L Koralage | SIS24B213 | Lecturers |
+| B.W.S.S Nawarathna | SIS24B239 | Courses |
 
-## Maintenance Notes
+## Notes
 
-- Test all affected flows after database changes
-- Keep SQL scripts and PHP logic aligned
-- Update this README when project structure changes
+- Keep SQL scripts and PHP controllers aligned when a table or procedure changes
+- Test the affected pages after every database update
+- Use prepared statements or stored procedures for database access
+- Update this README whenever the folder structure or setup steps change
