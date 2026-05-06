@@ -54,5 +54,5 @@ CREATE TABLE system_users (
 );
 
 -- Indexes
-CREATE INDEX idx_student_name ON students(last_name);
-CREATE INDEX idx_course_name ON courses(course_name);
+CREATE INDEX idx_student_full_name ON students(first_name, last_name);
+CREATE INDEX idx_student_email ON students(contact_email);

@@ -49,3 +49,17 @@ CREATE PROCEDURE sp_delete_student(IN p_student_id INT) BEGIN
 END // 
 
 DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE sp_search_students(IN keyword VARCHAR(100))
+BEGIN
+    SELECT *
+    FROM students
+    WHERE first_name LIKE CONCAT('%', keyword, '%')
+       OR last_name LIKE CONCAT('%', keyword, '%')
+       OR contact_email LIKE CONCAT('%', keyword, '%');
+END //
+
+DELIMITER ;
