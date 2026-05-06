@@ -169,13 +169,13 @@ Commit messages should stay focused and descriptive:
 
 ## Team
 
-| Member Name | Student ID | Main Work |
+| Member Name | Student ID | Specific Contributions |
 |---|---|---|
-| G.B.D Anuradha | SIS24B215 | Dashboard, enrollments, schema, data |
-| L.B Charith Jeewan | SIS24B236 | Department module, normalization |
-| W.I.L Withana | SIS24B238 | Students |
-| H.K.G.V.L Koralage | SIS24B213 | Lecturers |
-| B.W.S.S Nawarathna | SIS24B239 | Courses |
+| G. B. D. Anuradha | SIS24B215 | Developed the System Dashboard, Enrollments module, Schema, ER, associated final documentation |
+| L. B. Charith Jeewan | SIS24B236 | Developed the Departments module, Stored Procedures, documented the Database Normalization process |
+| W. I. L. Withana | SIS24B238 | Developed the Students module (CRUD operations), associated Stored Procedures, UI integration |
+| H. K. G. V. L. Koralage | SIS24B213 | Developed the Lecturers module, Views, associated Stored Procedures, associated final documentation |
+| B. W. S. S. Nawarathna | SIS24B239 | Developed the Courses module, associated Stored Procedures, UI integration |
 
 ## Notes
 
