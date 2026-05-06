@@ -16,6 +16,12 @@ The system provides a single dashboard for managing core academic records:
 
 The project is designed to demonstrate clean request handling, reusable database logic, and a structured separation between presentation, application, and data layers.
 
+## Live Demo
+
+The application is hosted at:
+
+http://159.223.73.121/uovt_student_management_system/presentation/
+
 ## Features
 
 - Role-based login for protected pages
